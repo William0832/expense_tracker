@@ -1,0 +1,31 @@
+<div class="container my-3 p-2">
+  <label for="name">
+    *必填欄位
+  </label>
+  <h1 class="mb-1">請修改你的支出</h1>
+  <form action="/edit/{{record._id}}" method="POST">
+    <label for="name">
+      名稱*
+    </label>
+    <input type="text" class="form-control mb-1" name="name" value="{{record.name}}">
+
+    <label for="date">
+      日期*
+    </label>
+    <input type="date" class="form-control mb-1" name="date" value="{{record.date}}">>
+
+    <label for="category">
+      分類*
+    </label>
+    <input type="text" class="form-control mb-1" name="category" value="{{record.category}}">>
+
+    <label for="money">
+      金額*
+    </label>
+    <input type="text" class="form-control mb-1" name="money" value="{{record.rating}}">
+
+    <a href="/" class="btn btn-light border-dark mx-2 my-3">Back</a>
+    <button type="submit" class="btn btn-secondary border-dark my-3">新增支出</button>
+
+  </form>
+</div>

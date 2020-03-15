@@ -42,8 +42,8 @@
       </div>
 
       <div class="col-auto">
-        <a href="/record/{{{this._id}}}/edit" class="btn btn-white">修改</a>
-        <form action="/record/{{{this._id}}}/delete?_method=DELETE" method="post" style="display:inline">
+        <a href="/records/edit" class="btn btn-white">修改</a>
+        <form action="/records/{{{this._id}}}/delete?_method=DELETE" method="post" style="display:inline">
           <button type="submit" class="btn btn-white">刪除</button>
         </form>
       </div>
@@ -54,4 +54,4 @@
 </ul>
 
 {{!-- 新增按鈕 --}}
-<a href="/" class="btn btn-primary text-center mx-5 mt-3 p-2 border-dark">新增支出</a>
+<a href="/records/new" class="btn btn-primary text-center mx-5 mt-3 p-2 border-dark">新增支出</a>
