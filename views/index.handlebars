@@ -1,0 +1,57 @@
+{{!-- 下拉選單 --}}
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle col-8 text-left" type="button" id="dropdownMenuButton"
+    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    類別
+  </button>
+  <div class="dropdown-menu col-8" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#">家居物業</a>
+    <a class="dropdown-item" href="#">交通出行</a>
+    <a class="dropdown-item" href="#">休閒娛樂</a>
+    <a class="dropdown-item" href="#">餐飲食品</a>
+    <a class="dropdown-item" href="#">其他</a>
+  </div>
+</div>
+
+{{!-- 總額 --}}
+<div class="col-8 d-flex justify-content-between my-3 font-weight-bold">
+  <p>總金額 :</p>
+  <h1 class="text-primary">100000</h1>
+</div>
+
+{{!-- 紀錄項目 --}}
+<ul class="list-group">
+  {{!-- {{#each records}} --}}
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col-8 mr-auto d-flex justify-content-between align-items-center bg-light rounded">
+        <div class="d-flex ">
+          {{!-- icon --}}
+          <h1 class="fas fa-utensils pt-3 pr-3"></h1>
+
+          <div class="d-flex flex-column">
+            {{!-- name --}}
+            <h4 class="mt-2">午餐</h4>
+            {{!-- time --}}
+            <p>2019/04/23</p>
+          </div>
+        </div>
+
+        {{!-- money --}}
+        <h4 class>60</h4>
+      </div>
+
+      <div class="col-auto">
+        <a href="/record/{{{this._id}}}/edit" class="btn btn-white">修改</a>
+        <form action="/record/{{{this._id}}}/delete?_method=DELETE" method="post" style="display:inline">
+          <button type="submit" class="btn btn-white">刪除</button>
+        </form>
+      </div>
+
+    </div>
+  </li>
+  {{!-- {{/each}} --}}
+</ul>
+
+{{!-- 新增按鈕 --}}
+<a href="/" class="btn btn-primary text-center mx-5 mt-3 p-2 border-dark">新增支出</a>
