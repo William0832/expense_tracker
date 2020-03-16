@@ -19,61 +19,61 @@ const usersData = [
 const recordsData = [
   {
     name: '早餐',
-    category: '餐飲食品',
+    category: 'food',
     amount: 60,
-    date: '2020/03/02'
+    date: '2020-03-02'
   },
   {
     name: '午餐',
-    category: '餐飲食品',
+    category: 'food',
     amount: 60,
-    date: '2020/03/02'
+    date: '2020-03-02'
   },
   {
     name: '晚餐',
-    category: '餐飲食品',
+    category: 'food',
     amount: 100,
-    date: '2020/03/04'
+    date: '2020-03-04'
   },
   {
     name: '書',
-    category: '休閒娛樂',
+    category: 'entertainment',
     amount: 300,
-    date: '2020/03/10'
+    date: '2020-03-10'
   },
   {
     name: '加油:汽車',
-    category: '交通出行',
+    category: 'transportation',
     amount: 1000,
-    date: '2020/03/10'
+    date: '2020-03-10'
   },
   {
     name: '捷運',
-    category: '交通出行',
+    category: 'transportation',
     amount: 90,
-    date: '2020/03/15'
+    date: '2020-03-15'
   },
   {
     name: '電影',
-    category: '休閒娛樂',
+    category: 'entertainment',
     amount: 300,
-    date: '2020/03/11'
+    date: '2020-03-11'
   },
   {
     name: '演唱會',
-    category: '休閒娛樂',
+    category: 'entertainment',
     amount: 3000,
-    date: '2020/03/11'
+    date: '2020-03-11'
   },
   {
     name: '租金',
-    category: '居家物業',
+    category: 'housing',
     amount: 10000,
-    date: '2020/03/15'
+    date: '2020-03-15'
   }
 ]
 
-mongoose.connect('mongodb://localhost/recod', {
+mongoose.connect('mongodb://localhost/record', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })

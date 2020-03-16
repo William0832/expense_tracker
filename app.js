@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 
 // 連接資料庫
-mongoose.connect('mongodb://localhost/recoder', {
+mongoose.connect('mongodb://localhost/record', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true
@@ -24,14 +24,12 @@ db.on('error', () => {
 db.once('open', () => {
   console.log('mongodb connected!')
 })
-
+app.use((req, res, next) => {
+  next()
+})
 // 連接routes
 app.use('/', require('./routes/home'))
 app.use('/records', require('./routes/record'))
-
-// app.use((req, res, next) => {
-//   next()
-// })
 
 // express監聽
 app.listen(port, () => {

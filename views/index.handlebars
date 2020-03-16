@@ -5,23 +5,24 @@
     類別
   </button>
   <div class="dropdown-menu col-8" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">家居物業</a>
-    <a class="dropdown-item" href="#">交通出行</a>
-    <a class="dropdown-item" href="#">休閒娛樂</a>
-    <a class="dropdown-item" href="#">餐飲食品</a>
-    <a class="dropdown-item" href="#">其他</a>
+    <a class="dropdown-item" href="/?category=all">全部</a>
+    <a class="dropdown-item" href="/?category=housing">家居物業</a>
+    <a class="dropdown-item" href="/?category=transportation">交通出行</a>
+    <a class="dropdown-item" href="/?category=entertainment">休閒娛樂</a>
+    <a class="dropdown-item" href="/?category=food">餐飲食品</a>
+    <a class="dropdown-item" href="/?category=others">其他</a>
   </div>
 </div>
 
 {{!-- 總額 --}}
 <div class="col-8 d-flex justify-content-between my-3 font-weight-bold">
   <p>總金額 :</p>
-  <h1 class="text-primary">100000</h1>
+  <h1 class="text-primary">{{sum}}</h1>
 </div>
 
 {{!-- 紀錄項目 --}}
 <ul class="list-group">
-  {{!-- {{#each records}} --}}
+  {{#each records}}
   <li class="list-group-item">
     <div class="row">
       <div class="col-8 mr-auto d-flex justify-content-between align-items-center bg-light rounded">
@@ -31,26 +32,50 @@
 
           <div class="d-flex flex-column">
             {{!-- name --}}
-            <h4 class="mt-2">午餐</h4>
+            <h4 class="mt-2">{{this.name}}</h4>
             {{!-- time --}}
-            <p>2019/04/23</p>
+            <p>{{this.date}}</p>
           </div>
         </div>
 
-        {{!-- money --}}
-        <h4 class>60</h4>
+        {{!-- amount --}}
+        <h4>{{this.amount}}</h4>
       </div>
 
-      <div class="col-auto">
-        <a href="/records/edit" class="btn btn-white">修改</a>
-        <form action="/records/{{{this._id}}}/delete?_method=DELETE" method="post" style="display:inline">
-          <button type="submit" class="btn btn-white">刪除</button>
+      <div class="col-auto mt-2">
+        <a href="/records/edit/{{this._id}}" class="btn btn-white">修改</a>
+        <form action="/records/delete/{{this._id}}?_method=DELETE" method="post" style="display:inline">
+          <button type="button" class="btn btn-white" data-toggle="modal" data-target="#id{{this._id}}">刪除</button>
+
+          {{!-- modal box --}}
+          <div class="modal fade" id="id{{this._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+
+                <div class="modal-header">
+                  <h5 class="modal-title text-danger" id="exampleModalLabel">刪除警告</h5>
+                </div>
+
+                <div class="modal-body text-left">
+                  <p class="font-weight-bold">{{this.name}}</p>
+                  <p>確定要<span class="font-weight-bold text-danger">刪除</span>此筆資料嗎?</p>
+                </div>
+
+                <div class="modal-footer">
+                  <button type="button" class="btn border-dark" data-dismiss="modal">返回</button>
+                  <button type="submit" class="btn btn-danger border-dark">刪除</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </form>
       </div>
 
     </div>
   </li>
-  {{!-- {{/each}} --}}
+  {{/each}}
 </ul>
 
 {{!-- 新增按鈕 --}}

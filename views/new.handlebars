@@ -3,7 +3,7 @@
     *必填欄位
   </label>
   <h1 class="mb-1">請輸入你的支出</h1>
-  <form action="/new/{{record._id}}" method="POST">
+  <form action="/records/new" method="POST">
     <label for="name">
       名稱*
     </label>
@@ -12,20 +12,26 @@
     <label for="date">
       日期*
     </label>
-    <input type="date" class="form-control mb-1" name="date" value="{{record.date}}">>
+    <input type="date" class="form-control mb-1" name="date" value="{{record.date}}">
 
     <label for="category">
       分類*
     </label>
-    <input type="text" class="form-control mb-1" name="category" value="{{record.category}}">>
+    <select class="form-control mb-3" id="category" name="category">
+      <option value="housing">家居物業</option>
+      <option value="transportation">交通出行</option>
+      <option value="entertainment">休閒娛樂</option>
+      <option value="food">餐飲食品</option>
+      <option value="others">其他</option>
+    </select>
 
-    <label for="money">
+    <label for="amount">
       金額*
     </label>
-    <input type="text" class="form-control mb-1" name="money" value="{{record.rating}}">
+    <input type="text" class="form-control mb-1" name="amount" value="{{record.amount}}">
 
     <a href="/" class="btn btn-light border-dark mx-2 my-3">Back</a>
-    <button type="submit" class="btn btn-secondary border-dark my-3">新增支出</button>
+    <button type="submit" class="btn btn-primary border-dark my-3">新增支出</button>
 
   </form>
 
