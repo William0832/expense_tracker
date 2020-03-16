@@ -2,19 +2,20 @@ const express = require('express')
 const router = express.Router()
 const Record = require('../models/record')
 
+const { authenticated } = require('../config/auth')
+
 // 顯示新增畫面
-router.get('/new', (req, res) => {
+router.get('/new', authenticated, (req, res) => {
   res.render('new')
 })
 // 送出新增資料
-router.post('/new', (req, res) => {
-  console.log(req.body)
+router.post('/new', authenticated, (req, res) => {
   const record = new Record({
     name: req.body.name,
     date: req.body.date,
     category: req.body.category,
-    amount: req.body.amount
-    // , userId: req.user._id
+    amount: req.body.amount,
+    userId: req.user._id
   })
   record.save(err => {
     if (err) return console.error(err)
@@ -23,7 +24,7 @@ router.post('/new', (req, res) => {
   })
 })
 // 顯示全部
-router.get('/', (req, res) => {
+router.get('/', authenticated, (req, res) => {
   Record.find()
     .lean()
     .exec((err, records) => {
@@ -32,26 +33,24 @@ router.get('/', (req, res) => {
     })
 })
 // 顯示修改畫面
-router.get('/edit/:id', (req, res) => {
+router.get('/edit/:id', authenticated, (req, res) => {
   Record.findOne({
-    _id: req.params.id
-    // , userId: req.user._id
+    _id: req.params.id,
+    userId: req.user._id
   })
     .lean()
     .exec((err, record) => {
       if (err) return console.log(err)
-      // record.category
       const selection = { [record.category]: 'on' }
-      // let date = String(record.date)
       return res.render('edit', { record, selection })
     })
 })
 // 送出修改資料
-router.put('/edit/:id', (req, res) => {
+router.put('/edit/:id', authenticated, (req, res) => {
   Record.findOne(
     {
-      _id: req.params.id
-      // , userId: req.user._id
+      _id: req.params.id,
+      userId: req.user._id
     },
     (err, record) => {
       if (err) return console.log(err)
@@ -68,11 +67,11 @@ router.put('/edit/:id', (req, res) => {
 })
 
 // 刪除
-router.delete('/delete/:id/', (req, res) => {
+router.delete('/delete/:id/', authenticated, (req, res) => {
   Record.findOne(
     {
-      _id: req.params.id
-      // , userId: req.user._id
+      _id: req.params.id,
+      userId: req.user._id
     },
     (err, restaurant) => {
       if (err) return console.error(err)
