@@ -1,19 +1,33 @@
-{{!-- 下拉選單 --}}
-<div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle col-8 text-left" type="button" id="dropdownMenuButton"
-    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    類別
-  </button>
-  <div class="dropdown-menu col-8" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="/?category=all">全部</a>
-    <a class="dropdown-item" href="/?category=housing">家居物業</a>
-    <a class="dropdown-item" href="/?category=transportation">交通出行</a>
-    <a class="dropdown-item" href="/?category=entertainment">休閒娛樂</a>
-    <a class="dropdown-item" href="/?category=food">餐飲食品</a>
-    <a class="dropdown-item" href="/?category=others">其他</a>
+<div class="col-8 d-flex justify-content-between">
+  {{!-- 類別下拉選單 --}}
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle text-left px-3" type="button" id="dropdownMenuButton"
+      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      月份
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      {{#each monthData}}
+      <a class="dropdown-item" href="/?mon={{this.index}}">{{this.name}}</a>
+      {{/each}}
+    </div>
   </div>
-</div>
+  {{!-- 類別下拉選單 --}}
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle text-left px-3" type="button" id="dropdownMenuButton"
+      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      類別
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" href="/?category=all">全部</a>
+      <a class="dropdown-item" href="/?category=housing">家居物業</a>
+      <a class="dropdown-item" href="/?category=transportation">交通出行</a>
+      <a class="dropdown-item" href="/?category=entertainment">休閒娛樂</a>
+      <a class="dropdown-item" href="/?category=food">餐飲食品</a>
+      <a class="dropdown-item" href="/?category=others">其他</a>
+    </div>
+  </div>
 
+</div>
 {{!-- 總額 --}}
 <div class="col-8 d-flex justify-content-between my-3 font-weight-bold">
   <p>總金額 :</p>
