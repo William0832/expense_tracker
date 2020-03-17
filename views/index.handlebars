@@ -4,7 +4,7 @@
 {{!-- 類別下拉選單 --}}
 
 <form id="selForm" action="/" class="col-8 form-inline d-flex justify-content-around">
-  <select data-month="{{month}}" class="form-control ml-1" id="month" name="month" onchange="this.form.submit()">
+  <select data-month="{{month}}" class="form-control" id="month" name="month" onchange="this.form.submit()">
     {{#each monthData}}
     <option id="month:{{this.index}}" value="{{this.index}}">{{this.name}}</option>
     {{/each}}
@@ -13,6 +13,13 @@
     {{#each categoryData}}
     <option id="category:{{this.name}}" value="{{this.name}}">{{this.name}}</option>
     {{/each}}
+  </select>
+  <select data-merchant="{{merchant}}" class="form-control" name="merchant" id="merchant" onchange="this.form.submit()">
+    <option id="merchant:全部商家" value="全部商家">全部商家</option>
+    {{#each merchants}}
+    <option id="merchant:{{this}}" value="{{this}}">{{this}}</option>
+    {{/each}}>
+
   </select>
 </form>
 {{!-- </div> --}}
@@ -85,7 +92,12 @@
 {{!-- 新增按鈕 --}}
 <a href="/records/new" class="btn btn-primary text-center mx-5 mt-3 p-2 border-dark">新增支出</a>
 
-<script>
+<script type="text/javascript">
+  const month = Number(document.querySelector('#month').dataset.month)
+  if (month) {
+    const selMonth = document.querySelector(`#month\\:${month}`)
+    selMonth.selected = true
+  }
 
   const category = '{{ category }}'
   if (category) {
@@ -93,10 +105,11 @@
     selCategory.selected = true
   }
 
-  const month = Number(document.querySelector('#month').dataset.month)
-  if (month) {
-    const selMonth = document.querySelector(`#month\\:${month}`)
-    selMonth.selected = true
+  const merchant = '{{ merchant }}'
+  console.log(merchant)
+  if (merchant) {
+    const selMerchant = document.querySelector(`#merchant\\:${merchant}`)
+    selMerchant.selected = true
   }
 
 </script>

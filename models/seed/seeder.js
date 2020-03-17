@@ -21,55 +21,64 @@ const recordsData = [
     name: '早餐',
     category: 'food',
     amount: 60,
-    date: '2020-03-02'
+    date: '2020-03-02',
+    merchant: '7-11'
   },
   {
     name: '午餐',
     category: 'food',
-    amount: 60,
-    date: '2020-03-02'
+    amount: 120,
+    date: '2020-03-02',
+    merchant: '麥當勞'
   },
   {
     name: '晚餐',
     category: 'food',
-    amount: 100,
-    date: '2020-03-04'
+    amount: 150,
+    date: '2020-03-04',
+    merchant: '巷口牛肉麵'
   },
   {
     name: '書',
     category: 'entertainment',
     amount: 300,
-    date: '2020-03-10'
+    date: '2020-03-10',
+    merchant: '誠品'
   },
   {
     name: '加油:汽車',
     category: 'transportation',
     amount: 1000,
-    date: '2020-03-10'
+    date: '2020-03-10',
+    merchant: '中油'
   },
   {
     name: '捷運',
     category: 'transportation',
     amount: 90,
-    date: '2020-03-15'
+    date: '2020-03-15',
+    merchant: '北捷'
   },
   {
     name: '電影',
     category: 'entertainment',
     amount: 300,
-    date: '2020-03-11'
+    date: '2020-03-11',
+    merchant: '威秀'
   },
   {
     name: '演唱會',
     category: 'entertainment',
     amount: 3000,
-    date: '2020-03-11'
+    date: '2020-03-11',
+    merchant: 'John Mayer'
   },
   {
     name: '租金',
     category: 'housing',
     amount: 10000,
-    date: '2020-03-15'
+    date: '2020-03-15',
+    merchant: '房東'
   }
 ]
 

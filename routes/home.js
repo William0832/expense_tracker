@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router()
 const Record = require('../models/record')
-
 const { authenticated } = require('../config/auth')
 const iconList = {
   housing: 'fas fa-home',
@@ -72,17 +71,28 @@ const categoryData = [
   { index: 4, name: 'transportation' },
   { index: 5, name: 'others' }
 ]
-
+//TODO:
+// 1.店家空白移除，讓html tabs id 可被DOM選到
+// 2.選擇店家reload後，無法保持店家選項
 router.get('/', authenticated, (req, res) => {
   const userName = req.user.name
   const condition = { userId: req.user._id }
-  let { month, category } = req.query
+  let { month, category, merchant } = req.query
   const year = new Date().getFullYear()
+  let selMerchant = ''
 
+  // 設定商家的DB搜尋條件
+  if (merchant && merchant !== '全部商家') {
+    condition.merchant = merchant
+    // 除去空白
+    selMerchant = merchant.replace(/\s*/g, '')
+  }
+
+  // 設定類別的DB搜尋條件
   if (category && category !== '全部類別') {
     condition.category = category
   }
-
+  // 設定月份的DB搜尋條件
   if (month && month !== '0') {
     if (month.length === 1) {
       month = '0' + month
@@ -92,9 +102,26 @@ router.get('/', authenticated, (req, res) => {
       $lte: `${year}-${month}-31`
     }
   }
-  console.log('condition:', condition)
 
+  // 改從資料庫撈出店家資料
+  let merchants = []
+  Record.find({ userId: req.user._id })
+    .lean()
+    .exec((err, records) => {
+      if (err) return console.log(err)
+      let index = 0
+      records.forEach(record => {
+        // 很像不能用.push
+        merchants[index] = record.merchant
+        index += 1
+      })
+    })
+  // merchants 移除重複
+  merchants = [...new Set(merchants)]
+
+  // 搜尋資料並將資料導入選染的頁面
   Record.find(condition)
+    .sort({ date: 'desc' })
     .lean()
     .exec((err, records) => {
       if (err) return console.log(err)
@@ -103,7 +130,6 @@ router.get('/', authenticated, (req, res) => {
         totalAmount += record.amount
         record.icon = iconList[record.category]
       })
-
       return res.render('index', {
         userName,
         records,
@@ -111,7 +137,9 @@ router.get('/', authenticated, (req, res) => {
         category,
         monthData,
         categoryData,
-        month
+        month,
+        selMerchant,
+        merchants
       })
     })
 })

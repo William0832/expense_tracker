@@ -14,10 +14,15 @@ const recordSchema = new Schema({
     type: Number,
     require: true
   },
+  merchant: {
+    type: String,
+    default: '其他'
+  },
   date: {
     type: String,
     default: Date.now
   },
+
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',

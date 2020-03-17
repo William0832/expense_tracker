@@ -19,13 +19,14 @@
     </label>
     <select id="category" class="form-control mb-3" id="category" name="category">
       <option value="housing" {{#if selection.housing}}selected="selected" {{/if}}>家居物業</option>
-      <option value="transportation" {{#if selection.transportation}}selected="selected" {{/if}}>交通出行
-      </option>
+      <option value="transportation" {{#if selection.transportation}}selected="selected" {{/if}}>交通出行</option>
       <option value="entertainment" {{#if selection.entertainment}}selected="selected" {{/if}}>休閒娛樂</option>
       <option value="food" {{#if selection.food}}selected="selected" {{/if}}>餐飲食品</option>
       <option value="others" {{#if selection.others}}selected="selected" {{/if}}>其他</option>
     </select>
-    {{!-- <input type="text" class="form-control mb-1" name="category" value="{{record.category}}" required> --}}
+
+    <label for="merchant">商家</label>
+    <input id="merchant" type="text" class="form-control mb-1" name="merchant" value="{{record.merchant}}">
 
     <label for="amount">
       金額*
