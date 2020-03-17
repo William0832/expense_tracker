@@ -1,34 +1,28 @@
-<div class="col-8 d-flex justify-content-between">
+<h3>Hi {{userName}}</h3>
+
+<div class="col-8 d-flex justify-content-around">
   {{!-- 類別下拉選單 --}}
-  <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle text-left px-3" type="button" id="dropdownMenuButton"
-      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      月份
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      {{#each monthData}}
-      <a class="dropdown-item" href="/?mon={{this.index}}">{{this.name}}</a>
-      {{/each}}
+
+  <form action="/" class="form-inline d-flex justify-content-around">
+    <div>
+      <label for="month">月份</label>
+      <select class="form-control ml-1" id="month" name="month" onchange="this.form.submit()">
+        {{#each monthData}}
+        <option value="{{this.index}}">{{this.name}}</option>
+        {{/each}}
+      </select>
     </div>
-  </div>
-  {{!-- 類別下拉選單 --}}
-  <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle text-left px-3" type="button" id="dropdownMenuButton"
-      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      類別
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <a class="dropdown-item" href="/?category=all">全部</a>
-      <a class="dropdown-item" href="/?category=housing">家居物業</a>
-      <a class="dropdown-item" href="/?category=transportation">交通出行</a>
-      <a class="dropdown-item" href="/?category=entertainment">休閒娛樂</a>
-      <a class="dropdown-item" href="/?category=food">餐飲食品</a>
-      <a class="dropdown-item" href="/?category=others">其他</a>
+    <div>
+      <label for="category">分類</label>
+      <select class="form-control" id="category" name="category" onchange="this.form.submit()">
+        {{#each categoryData}}
+        <option value="{{this.name}}">{{this.name}}</option>
+        {{/each}}
+      </select>
     </div>
-  </div>
+  </form>
 
 </div>
-{{!-- 總額 --}}
 <div class="col-8 d-flex justify-content-between my-3 font-weight-bold">
   <p>總金額 :</p>
   <h1 class="text-primary">{{sum}}</h1>

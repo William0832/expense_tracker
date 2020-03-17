@@ -64,38 +64,60 @@ const monthData = [
     name: 'DEC'
   }
 ]
+const categoryData = [
+  { index: 0, name: 'all' },
+  { index: 1, name: 'housing' },
+  { index: 2, name: 'entertainment' },
+  { index: 3, name: 'food' },
+  { index: 4, name: 'transportation' },
+  { index: 5, name: 'others' }
+]
 
-console.log('monthData', monthData)
 router.get('/', authenticated, (req, res) => {
-  const pickedCategory = req.query.category || 'all'
-  if (pickedCategory !== 'all') {
-    Record.find({
-      userId: req.user._id,
-      category: pickedCategory
-    })
-      .lean()
-      .exec((err, records) => {
-        if (err) return console.log(err)
-        let sum = 0
-        records.forEach(record => {
-          sum += record.amount
-          record.icon = iconList[record.category]
-        })
-        return res.render('index', { records, sum, pickedCategory, monthData })
-      })
-  } else {
-    Record.find({ userId: req.user._id })
-      .lean()
-      .exec((err, records) => {
-        if (err) return console.log(err)
-        let sum = 0
-        records.forEach(record => {
-          sum += record.amount
-          record.icon = iconList[record.category]
-        })
-        return res.render('index', { records, sum, pickedCategory, monthData })
-      })
+  const user = req.user
+  const userName = user.name
+  console.log('query:', req.query)
+  let { month, category } = req.query
+  const condition = { userId: req.user._id }
+  const year = new Date().getFullYear()
+  if (category) {
+    condition.category = category
   }
-})
+  if (category === 'all') {
+    delete condition.category
+  }
 
+  if (month && month !== 0) {
+    if (month.length === 1) {
+      month = '0' + month
+    }
+    condition.date = {
+      $gte: `${year}-${month}-01`,
+      $lte: `${year}-${month}-31`
+    }
+  }
+  if (month === '0') {
+    delete condition.date
+  }
+  Record.find(condition)
+    .lean()
+    .exec((err, records) => {
+      if (err) return console.log(err)
+      let sum = 0
+      records.forEach(record => {
+        sum += record.amount
+        record.icon = iconList[record.category]
+      })
+
+      return res.render('index', {
+        userName,
+        records,
+        sum,
+        category,
+        monthData,
+        categoryData,
+        month
+      })
+    })
+})
 module.exports = router
