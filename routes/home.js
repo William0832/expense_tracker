@@ -13,7 +13,7 @@ const iconList = {
 const monthData = [
   {
     index: 0,
-    name: 'ALL'
+    name: '所有月份'
   },
   {
     index: 1,
@@ -65,7 +65,7 @@ const monthData = [
   }
 ]
 const categoryData = [
-  { index: 0, name: 'all' },
+  { index: 0, name: '全部類別' },
   { index: 1, name: 'housing' },
   { index: 2, name: 'entertainment' },
   { index: 3, name: 'food' },
@@ -74,20 +74,16 @@ const categoryData = [
 ]
 
 router.get('/', authenticated, (req, res) => {
-  const user = req.user
-  const userName = user.name
-  console.log('query:', req.query)
-  let { month, category } = req.query
+  const userName = req.user.name
   const condition = { userId: req.user._id }
+  let { month, category } = req.query
   const year = new Date().getFullYear()
-  if (category) {
+
+  if (category && category !== '全部類別') {
     condition.category = category
   }
-  if (category === 'all') {
-    delete condition.category
-  }
 
-  if (month && month !== 0) {
+  if (month && month !== '0') {
     if (month.length === 1) {
       month = '0' + month
     }
@@ -96,23 +92,22 @@ router.get('/', authenticated, (req, res) => {
       $lte: `${year}-${month}-31`
     }
   }
-  if (month === '0') {
-    delete condition.date
-  }
+  console.log('condition:', condition)
+
   Record.find(condition)
     .lean()
     .exec((err, records) => {
       if (err) return console.log(err)
-      let sum = 0
+      let totalAmount = 0
       records.forEach(record => {
-        sum += record.amount
+        totalAmount += record.amount
         record.icon = iconList[record.category]
       })
 
       return res.render('index', {
         userName,
         records,
-        sum,
+        totalAmount,
         category,
         monthData,
         categoryData,

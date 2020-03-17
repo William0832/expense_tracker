@@ -1,28 +1,22 @@
-<h3>Hi {{userName}}</h3>
+<h3 class="col-8 my-4 text-center">Welcome back! <span class="text-primary">{{userName}}</span></h3>
 
-<div class="col-8 d-flex justify-content-around">
-  {{!-- 類別下拉選單 --}}
+{{!-- <div class="col-8 d-flex justify-content-between"> --}}
+{{!-- 類別下拉選單 --}}
 
-  <form action="/" class="form-inline d-flex justify-content-around">
-    <div>
-      <label for="month">月份</label>
-      <select class="form-control ml-1" id="month" name="month" onchange="this.form.submit()">
-        {{#each monthData}}
-        <option value="{{this.index}}">{{this.name}}</option>
-        {{/each}}
-      </select>
-    </div>
-    <div>
-      <label for="category">分類</label>
-      <select class="form-control" id="category" name="category" onchange="this.form.submit()">
-        {{#each categoryData}}
-        <option value="{{this.name}}">{{this.name}}</option>
-        {{/each}}
-      </select>
-    </div>
-  </form>
+<form id="selForm" action="/" class="col-8 form-inline d-flex justify-content-around">
+  <select data-month="{{month}}" class="form-control ml-1" id="month" name="month" onchange="this.form.submit()">
+    {{#each monthData}}
+    <option id="month:{{this.index}}" value="{{this.index}}">{{this.name}}</option>
+    {{/each}}
+  </select>
+  <select data-category="{{category}}" class="form-control" id="category" name="category" onchange="this.form.submit()">
+    {{#each categoryData}}
+    <option id="category:{{this.name}}" value="{{this.name}}">{{this.name}}</option>
+    {{/each}}
+  </select>
+</form>
+{{!-- </div> --}}
 
-</div>
 <div class="col-8 d-flex justify-content-between my-3 font-weight-bold">
   <p>總金額 :</p>
   <h1 class="text-primary">{{sum}}</h1>
@@ -50,10 +44,12 @@
         <h4>{{this.amount}}</h4>
       </div>
 
-      <div class="col-auto mt-2">
-        <a href="/records/edit/{{this._id}}" class="btn btn-white">修改</a>
+      <div class="col-auto mt-3 text-center">
+
+        <a href="/records/edit/{{this._id}}" class=" mr-4 btn btn-light p-3">修改</a>
         <form action="/records/delete/{{this._id}}?_method=DELETE" method="post" style="display:inline">
-          <button type="button" class="btn btn-white" data-toggle="modal" data-target="#id{{this._id}}">刪除</button>
+          <button type="button" class="mr-3 btn btn-light p-3" data-toggle="modal"
+            data-target="#id{{this._id}}">刪除</button>
 
           {{!-- modal box --}}
           <div class="modal fade" id="id{{this._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -88,3 +84,19 @@
 
 {{!-- 新增按鈕 --}}
 <a href="/records/new" class="btn btn-primary text-center mx-5 mt-3 p-2 border-dark">新增支出</a>
+
+<script>
+
+  const category = '{{ category }}'
+  if (category) {
+    const selCategory = document.querySelector(`#category\\:${category}`)
+    selCategory.selected = true
+  }
+
+  const month = Number(document.querySelector('#month').dataset.month)
+  if (month) {
+    const selMonth = document.querySelector(`#month\\:${month}`)
+    selMonth.selected = true
+  }
+
+</script>
