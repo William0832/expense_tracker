@@ -71,8 +71,6 @@ const categoryData = [
   { index: 4, name: 'transportation' },
   { index: 5, name: 'others' }
 ]
-//TODO:
-// 1.店家空白移除，讓html tabs id 可被DOM選到
 router.get('/', authenticated, (req, res) => {
   const userName = req.user.name
   const condition = { userId: req.user._id }

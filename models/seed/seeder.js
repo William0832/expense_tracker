@@ -82,7 +82,7 @@ const recordsData = [
   }
 ]
 
-mongoose.connect('mongodb://localhost/record', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/record', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
