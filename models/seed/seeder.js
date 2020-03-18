@@ -71,7 +71,7 @@ const recordsData = [
     category: 'entertainment',
     amount: 3000,
     date: '2020-03-11',
-    merchant: 'John Mayer'
+    merchant: 'John_Mayer'
   },
   {
     name: '租金',

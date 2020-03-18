@@ -73,19 +73,17 @@ const categoryData = [
 ]
 //TODO:
 // 1.店家空白移除，讓html tabs id 可被DOM選到
-// 2.選擇店家reload後，無法保持店家選項
 router.get('/', authenticated, (req, res) => {
   const userName = req.user.name
   const condition = { userId: req.user._id }
   let { month, category, merchant } = req.query
   const year = new Date().getFullYear()
-  let selMerchant = ''
 
   // 設定商家的DB搜尋條件
   if (merchant && merchant !== '全部商家') {
     condition.merchant = merchant
     // 除去空白
-    selMerchant = merchant.replace(/\s*/g, '')
+    merchant = merchant.replace(/\s*/g, '')
   }
 
   // 設定類別的DB搜尋條件
@@ -103,7 +101,7 @@ router.get('/', authenticated, (req, res) => {
     }
   }
 
-  // 改從資料庫撈出店家資料
+  // 從資料庫撈出店家資料並丟入list
   let merchants = []
   Record.find({ userId: req.user._id })
     .lean()
@@ -116,14 +114,14 @@ router.get('/', authenticated, (req, res) => {
         index += 1
       })
     })
-  // merchants 移除重複
-  merchants = [...new Set(merchants)]
 
   // 搜尋資料並將資料導入選染的頁面
   Record.find(condition)
     .sort({ date: 'desc' })
     .lean()
     .exec((err, records) => {
+      // merchants 移除重複
+      merchants = [...new Set(merchants)]
       if (err) return console.log(err)
       let totalAmount = 0
       records.forEach(record => {
@@ -138,7 +136,7 @@ router.get('/', authenticated, (req, res) => {
         monthData,
         categoryData,
         month,
-        selMerchant,
+        merchant,
         merchants
       })
     })

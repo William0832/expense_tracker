@@ -16,13 +16,13 @@ const recordSchema = new Schema({
   },
   merchant: {
     type: String,
-    default: '其他'
+    lowercase: true,
+    trim: true
   },
   date: {
     type: String,
     default: Date.now
   },
-
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
