@@ -1,8 +1,9 @@
 <div class="container my-3 p-2">
-  <label for="name">
-    *必填欄位
-  </label>
-  <h1 class="mb-1">請修改你的支出</h1>
+  {{> messages}}
+  <div>
+    <h3 class="mb-1" style="display:inline">請輸入你的支出</h3>
+    <label class="mx-2">*必填欄位</label>
+  </div>
   <form action="/records/edit/{{record._id}}?_method=PUT" method="POST">
     <label for="name">
       名稱*

@@ -1,37 +1,38 @@
 <div class="container my-3 p-2">
-  <label for="name">
-    *必填欄位
-  </label>
-  <h1 class="mb-1">請輸入你的支出</h1>
+  {{> messages}}
+  <div>
+    <h3 class="mb-1" style="display:inline">請輸入你的支出</h3>
+    <label class="mx-2">*必填欄位</label>
+  </div>
   <form action="/records/new" method="POST">
     <label for="name">
       名稱*
     </label>
-    <input type="text" class="form-control mb-1" name="name" value="{{record.name}}">
+    <input type="text" class="form-control mb-1" name="name" value="{{name}}">
 
     <label for="date">
       日期*
     </label>
-    <input type="date" class="form-control mb-1" name="date" value="{{record.date}}">
+    <input type="date" class="form-control mb-1" name="date" value="{{date}}">
 
     <label for="category">
       分類*
     </label>
     <select class="form-control mb-3" id="category" name="category">
-      <option value="housing">家居物業</option>
-      <option value="transportation">交通出行</option>
-      <option value="entertainment">休閒娛樂</option>
-      <option value="food">餐飲食品</option>
-      <option value="others">其他</option>
+      <option value="housing" {{#if selection.housing}}selected="selected" {{/if}}>家居物業</option>
+      <option value="transportation" {{#if selection.transportation}}selected="selected" {{/if}}>交通出行</option>
+      <option value="entertainment" {{#if selection.entertainment}}selected="selected" {{/if}}>休閒娛樂</option>
+      <option value="food" {{#if selection.food}}selected="selected" {{/if}}>餐飲食品</option>
+      <option value="others" {{#if selection.others}}selected="selected" {{/if}}>其他</option>
     </select>
 
     <label for="merchant">商家</label>
-    <input id="merchant" type="text" class="form-control mb-1" name="merchant" value="{{record.merchant}}">
+    <input id="merchant" type="text" class="form-control mb-1" name="merchant" value="{{merchant}}">
 
     <label for="amount">
       金額*
     </label>
-    <input type="text" class="form-control mb-1" name="amount" value="{{record.amount}}">
+    <input type="text" class="form-control mb-1" name="amount" value="{{amount}}">
 
     <a href="/" class="btn btn-light border-dark mx-2 my-3">Back</a>
     <button type="submit" class="btn btn-primary border-dark my-3">新增支出</button>

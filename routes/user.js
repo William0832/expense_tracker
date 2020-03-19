@@ -12,11 +12,6 @@ router.get('/login', (req, res) => {
 
 // 登入檢查
 router.post('/login', (req, res, next) => {
-  //   passport.authenticate('local', {
-  //     successRedirect: '/',
-  //     failureRedirect: 'login'
-  //   })(req, res, next)
-  // })
   passport.authenticate('local', (err, user, info) => {
     if (err) {
       return next(err)
